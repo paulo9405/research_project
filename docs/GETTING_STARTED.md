@@ -67,13 +67,83 @@ You should see a message like: `On branch main` and `nothing to commit, working 
 
 ---
 
-## What's Next?
+## Task 2: Switch to Your Branch
 
-Once you have cloned the repository:
+Each team member has their own branch. Find your name below and switch to your branch.
 
-1. Wait for the project leader to create your personal branch
-2. You will receive instructions on how to switch to your branch
-3. Never commit directly to the `main` branch
+### Branch Assignments
+
+| Team Member | Branch Name |
+|-------------|-------------|
+| Lucas | `lucas` |
+| Larissa | `larissa` |
+| Humberto | `humberto` |
+| Matheus | `matheus` |
+
+### Step 1: Switch to your branch
+
+Replace `your-branch-name` with your assigned branch from the table above:
+
+```bash
+git checkout your-branch-name
+```
+
+**Example for Lucas:**
+```bash
+git checkout lucas
+```
+
+### Step 2: Verify you are on the correct branch
+
+```bash
+git branch
+```
+
+You should see an asterisk (*) next to your branch name, like this:
+```
+  main
+* lucas
+```
+
+---
+
+## Task 3: Making Changes and Pushing
+
+When you make changes to the project, follow these steps:
+
+### Step 1: Check what files you modified
+
+```bash
+git status
+```
+
+### Step 2: Add your changes
+
+```bash
+git add .
+```
+
+### Step 3: Commit your changes
+
+```bash
+git commit -m "Describe what you changed"
+```
+
+### Step 4: Push to GitHub
+
+```bash
+git push
+```
+
+---
+
+## Important Rules
+
+1. **Never commit directly to the `main` branch**
+2. Always work on your assigned branch
+3. Only the project leader manages the `main` branch
+4. Write clear commit messages describing your changes
+5. Push your changes regularly to keep the repository updated
 
 ---
 
