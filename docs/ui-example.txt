@@ -1,0 +1,38 @@
+
+Primária (Ação): #008751 (Verde Esmeralda - remete à Irlanda, usado em botões principais e destaques).
+Secundária (Acentos): #005A9C (Azul Profundo - usado para links ou ícones secundários).
+Texto Principal: #1A1A1A (Quase preto - para títulos e corpo de texto, garantindo leitura máxima).
+Texto Secundário/Labels: #4A4A4A (Cinza escuro - para descrições menores).
+Background (Fundo): #F8F9FA (Cinza muito claro/Off-white - evita o cansaço visual do branco puro).
+Cards/Containers: #FFFFFF (Branco puro - para destacar o conteúdo sobre o fundo).
+2. Tipografia (Hierarquia Visual)
+Utilizar fontes Sans-Serif modernas (como Inter, Roboto ou Open Sans) que são seguras para web.
+
+H1 (Títulos Hero): 32px - 40px | Bold | Cor: #1A1A1A.
+H2 (Títulos de Card): 24px | Semi-bold | Cor: #1A1A1A.
+Corpo de Texto: 16px | Regular | Cor: #1A1A1A.
+Labels de Formulário: 14px | Medium | Cor: #4A4A4A.
+Botões: 16px | Bold | Cor do texto: #FFFFFF.
+3. Formatos e Shapes (Estilo Moderno)
+O design utiliza uma linguagem visual suave e amigável.
+
+Bordas Arredondadas (Border-radius):
+Cards e Containers: 16px ou 20px.
+Botões e Inputs: 8px ou 12px.
+Sombras (Drop Shadows):
+Utilizar sombras suaves para dar profundidade: 0px 4px 12px rgba(0, 0, 0, 0.05).
+Inputs (Campos de formulário):
+Borda de 1px solid #DEE2E6.
+Estado de Focus: Borda de 2px solid #008751.
+4. Componentes Reutilizáveis (UI Kit)
+Tiles de Seleção: As opções da pesquisa devem ser botões grandes (tipo "Cards") com um ícone centralizado, nome da opção e um efeito de hover (mudar a cor da borda para o verde primário).
+Gráficos (Dashboard): Recomendar o uso da biblioteca Chart.js ou Google Charts.
+Cores dos gráficos: Alternar entre o Verde (#008751), Azul (#005A9C) e um Cinza Neutro (#CED4DA).
+Botão Principal (CTA): Background verde, sem borda, preenchimento (padding) de 12px 24px.
+5. Layout e Estrutura (Grid)
+Container: Limitar a largura máxima do conteúdo em 1140px (padrão Bootstrap).
+Espaçamento (Padding/Margin): Utilizar múltiplos de 8 (8px, 16px, 24px, 32px) para manter a consistência visual.
+Responsividade: O formulário deve ocupar 100% da largura em telas menores que 768px (mobile) e centralizar-se em 50-60% da tela em desktops.
+6. Orientações de UX (Interação)
+Feedback: Ao clicar em "Submit", o botão deve mostrar um estado de "Carregando" antes de redirecionar para a página de "Obrigado".
+Acessibilidade: Garantir que todos os campos de texto tenham <label> associado e que o contraste das cores passe nos testes WCAG (o que já priorizamos nesta última versão).
