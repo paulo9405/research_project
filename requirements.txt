@@ -1,0 +1,8 @@
+# Django
+Django>=4.2,<5.0
+
+# Production server
+gunicorn>=21.0
+
+# Environment variables
+python-dotenv>=1.0

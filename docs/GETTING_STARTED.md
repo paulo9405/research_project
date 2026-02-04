@@ -137,6 +137,35 @@ git push
 
 ---
 
+## Task 4: Get Updates from Main Branch
+
+When the project leader adds new files or changes to the `main` branch, you need to update your branch.
+
+Run this command to get the latest updates:
+
+```bash
+git pull origin main
+```
+
+This will download the new changes from `main` into your branch.
+
+---
+
+## Quick Reference
+
+Here are the most common commands you will use:
+
+| Action | Command |
+|--------|---------|
+| Check your current branch | `git branch` |
+| See modified files | `git status` |
+| Add your changes | `git add .` |
+| Commit your changes | `git commit -m "message"` |
+| Push to GitHub | `git push` |
+| Get updates from main | `git pull origin main` |
+
+---
+
 ## Important Rules
 
 1. **Never commit directly to the `main` branch**
