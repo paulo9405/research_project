@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}Why did you choose to live in Ireland?{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Título principal -->
+    <div class="text-center mb-4">
+        <h1 class="fw-bold" style="font-size: 2.5rem;">
+            Why did you choose to<br>
+            <span style="color: var(--primary-color);">live in Ireland?</span>
+        </h1>
+        <p class="text-muted mt-2">Your insights help us understand the landscape of immigration and quality of life in Ireland.</p>
+    </div>
+
+    <!-- Card do formulário -->
+    <div class="card mx-auto p-4" style="max-width: 760px;">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Progress bar -->
+            <p class="fw-semibold mb-0">Survey Progress</p>
+            <small class="text-muted">Section 1 of 1: Your Story</small>
+            <div class="progress my-2" style="height: 6px;">
+                <div class="progress-bar bg-success" style="width: 100%;"></div>
+            </div>
+
+            <!-- Main question -->
+            <h5 class="mt-4 mb-3">Main Reason for Moving</h5>
+
+            <div class="row g-3 mb-4">
+
+                <!-- Option card: Learn English -->
+                <div class="col-6 col-md-3">
+                    <input type="radio" name="reason" value="learn_english" id="r1" class="d-none reason-radio">
+                    <label for="r1" class="reason-card card text-center p-3 w-100 h-100" style="cursor:pointer; border: 2px solid #DEE2E6; border-radius: 12px;">
+                        <i class="bi bi-mortarboard fs-2 mb-2"></i>
+                        <span class="fw-semibold">Learn English</span>
+                        <small class="text-muted">EDUCATION</small>
+                    </label>
+                </div>
+
+                <!-- Option card: Job Opportunities -->
+                <div class="col-6 col-md-3">
+                    <input type="radio" name="reason" value="job" id="r2" class="d-none reason-radio">
+                    <label for="r2" class="reason-card card text-center p-3 w-100 h-100" style="cursor:pointer; border: 2px solid #DEE2E6; border-radius: 12px;">
+                        <i class="bi bi-briefcase fs-2 mb-2"></i>
+                        <span class="fw-semibold">Job Opportunities</span>
+                        <small class="text-muted">EMPLOYMENT</small>
+                    </label>
+                </div>
+
+                <!-- Option card: Quality of Life -->
+                <div class="col-6 col-md-3">
+                    <input type="radio" name="reason" value="quality_life" id="r3" class="d-none reason-radio">
+                    <label for="r3" class="reason-card card text-center p-3 w-100 h-100" style="cursor:pointer; border: 2px solid #DEE2E6; border-radius: 12px;">
+                        <i class="bi bi-heart fs-2 mb-2"></i>
+                        <span class="fw-semibold">Quality of Life</span>
+                        <small class="text-muted">LIFESTYLE</small>
+                    </label>
+                </div>
+
+                <!-- Option card: Career / Future -->
+                <div class="col-6 col-md-3">
+                    <input type="radio" name="reason" value="career" id="r4" class="d-none reason-radio">
+                    <label for="r4" class="reason-card card text-center p-3 w-100 h-100" style="cursor:pointer; border: 2px solid #DEE2E6; border-radius: 12px;">
+                        <i class="bi bi-graph-up-arrow fs-2 mb-2"></i>
+                        <span class="fw-semibold">Career / Future</span>
+                        <small class="text-muted">PROSPECTS</small>
+                    </label>
+                </div>
+
+                <!-- Option card: Other -->
+                <div class="col-6 col-md-3">
+                    <input type="radio" name="reason" value="other" id="r5" class="d-none reason-radio">
+                    <label for="r5" class="reason-card card text-center p-3 w-100 h-100" style="cursor:pointer; border: 2px solid #DEE2E6; border-radius: 12px;">
+                        <i class="bi bi-three-dots fs-2 mb-2"></i>
+                        <span class="fw-semibold">Other</span>
+                        <small class="text-muted">OTHER</small>
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- "Other" text field — only shown when Other is selected -->
+            <div id="other-field" class="mb-4 d-none">
+                <label class="form-label text-muted" style="font-size: 14px;">PLEASE SPECIFY</label>
+                <input type="text" name="reason_other" class="form-control" placeholder="Tell us your reason...">
+            </div>
+
+            <!-- Personal information fields -->
+            <h5 class="mb-3">Personal Information</h5>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label text-muted" style="font-size: 14px;">FULL NAME</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-person"></i></span>
+                        <input type="text" name="full_name" class="form-control" placeholder="e.g. Liam O'Sullivan" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted" style="font-size: 14px;">CURRENT CITY</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-geo-alt"></i></span>
+                        <input type="text" name="city" class="form-control" placeholder="e.g. Dublin" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted" style="font-size: 14px;">NATIONALITY</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-globe"></i></span>
+                        <input type="text" name="nationality" class="form-control" placeholder="Your origin country" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted" style="font-size: 14px;">EMAIL ADDRESS</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                        <input type="email" name="email" class="form-control" placeholder="email@address.com" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted" style="font-size: 14px;">AGE</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-calendar"></i></span>
+                        <input type="number" name="age" class="form-control" placeholder="e.g. 25" min="1" max="120" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-5 py-2 fw-bold" style="border-radius: 50px; font-size: 16px;">
+                    Submit Survey <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+                <p class="text-muted mt-2"><small>By submitting, you agree to our academic data privacy guidelines.</small></p>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Highlight selected card and show/hide the "Other" text field
+    document.querySelectorAll('.reason-radio').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            // Remove highlight from all cards
+            document.querySelectorAll('.reason-card').forEach(function(card) {
+                card.style.borderColor = '#DEE2E6';
+                card.style.color = '';
+            });
+
+            // Highlight the selected card
+            this.nextElementSibling.style.borderColor = '#008751';
+            this.nextElementSibling.style.color = '#008751';
+
+            // Show/hide "Other" field
+            var otherField = document.getElementById('other-field');
+            if (this.value === 'other') {
+                otherField.classList.remove('d-none');
+            } else {
+                otherField.classList.add('d-none');
+            }
+        });
+    });
+</script>
+{% endblock %}
