@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>High-Legibility Data Dashboard - Immigration Study Ireland</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0D9488", // Deeper teal for better contrast
+                        "accent": "#0F172A", // Dark slate for high-contrast labels
+                        "background-page": "#F1F5F9", // Lighter gray for background
+                        "card-white": "#FFFFFF",
+                        "chart-1": "#0D9488", // Teal
+                        "chart-2": "#4F46E5", // Indigo (distinct)
+                        "chart-3": "#D97706", // Amber (distinct)
+                        "chart-4": "#BE185D", // Pink/Crimson (distinct)
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.background-page');
+        }
+        .chart-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-display text-accent">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-md px-4 md:px-20 py-3">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex size-9 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined font-bold">insights</span>
+</div>
+<h2 class="text-lg font-extrabold tracking-tight text-accent">Immigration Study Ireland</h2>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-bold text-primary" href="#">Dashboard</a>
+<a class="text-sm font-bold text-slate-600 hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Raw Data</a>
+<a class="text-sm font-bold text-slate-600 hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Reports</a>
+<a class="text-sm font-bold text-slate-600 hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Settings</a>
+</nav>
+<div class="size-9 rounded-full border-2 border-primary/20 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDw6hTBuZUu7Ha9SbFjNYjKLVOfCTNBH83wwv4XgHyndxrmvkc3gafue9GGVimWHjphF9zg2VjypQXO3WrTt-FuTBW18EbaRGgGhxge6zwqSPvcMsuTUSEXo7dMqi29S_XxGoW4zg4MYSFbA3qiZc6c_Cb6BLpbeQU2zUiG73SVJ8Xf1pcu4MUFzYinkhYXulpkZfWjzBLf2OLdV8ZMt-cU8iNYKLs60l2bpyXZZ93RboGMWBe8osafgjBom2NreWjGhVX5xf9RFi1x");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1200px] mx-auto px-4 md:px-10 py-8">
+<div class="flex items-center gap-2 mb-3">
+<a class="text-primary text-sm font-bold hover:underline" href="#">Projects</a>
+<span class="material-symbols-outlined text-xs text-slate-400">chevron_right</span>
+<span class="text-accent text-sm font-bold">Immigration Data Overview</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div class="flex flex-col gap-1">
+<h1 class="text-4xl font-black tracking-tight text-accent">Data Visualization</h1>
+<p class="text-slate-700 text-base font-medium">Academic survey platform for data collection and visualization.</p>
+</div>
+<button class="bg-accent hover:bg-black text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export PDF Report
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="relative flex flex-col gap-2 rounded-xl bg-card-white p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined absolute top-6 right-6 text-primary">groups</span>
+<p class="text-slate-600 text-xs font-black uppercase tracking-widest">Total Respondents</p>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-black text-accent">1,240</p>
+<span class="text-emerald-700 text-sm font-black bg-emerald-100 px-2 py-0.5 rounded-lg">+12%</span>
+</div>
+</div>
+<div class="relative flex flex-col gap-2 rounded-xl bg-card-white p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined absolute top-6 right-6 text-primary">task_alt</span>
+<p class="text-slate-600 text-xs font-black uppercase tracking-widest">Completion Rate</p>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-black text-accent">88.4%</p>
+<span class="text-emerald-700 text-sm font-black bg-emerald-100 px-2 py-0.5 rounded-lg">+2%</span>
+</div>
+</div>
+<div class="relative flex flex-col gap-2 rounded-xl bg-card-white p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined absolute top-6 right-6 text-primary">calendar_today</span>
+<p class="text-slate-600 text-xs font-black uppercase tracking-widest">Latest Entry</p>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-black text-accent">Oct 24</p>
+<span class="text-slate-500 text-sm font-bold">Just now</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-card-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="text-2xl font-black text-accent">Primary Reasons</h3>
+<p class="text-base text-slate-600 font-medium">Main factors for immigrating to Ireland</p>
+</div>
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary font-bold">bar_chart</span>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div class="space-y-3">
+<div class="flex justify-between text-base font-black text-accent">
+<span>Employment</span>
+<span>45%</span>
+</div>
+<div class="h-4 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-chart-1 rounded-full chart-bar" style="width: 45%;"></div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-base font-black text-accent">
+<span>Education</span>
+<span>30%</span>
+</div>
+<div class="h-4 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-chart-2 rounded-full chart-bar" style="width: 30%;"></div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-base font-black text-accent">
+<span>Family Reunification</span>
+<span>15%</span>
+</div>
+<div class="h-4 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-chart-3 rounded-full chart-bar" style="width: 15%;"></div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-base font-black text-accent">
+<span>Other</span>
+<span>10%</span>
+</div>
+<div class="h-4 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-chart-4 rounded-full chart-bar" style="width: 10%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-card-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="text-2xl font-black text-accent">Age Demographics</h3>
+<p class="text-base text-slate-600 font-medium">Age group distribution of survey participants</p>
+</div>
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary font-bold">donut_large</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-center gap-12 py-6">
+<div class="relative size-56">
+<svg class="size-full -rotate-90" viewBox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#f1f5f9" stroke-width="12"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#4F46E5" stroke-dasharray="100.5 151.5" stroke-dashoffset="0" stroke-width="14"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#0D9488" stroke-dasharray="87.9 164.1" stroke-dashoffset="-100.5" stroke-width="14"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#D97706" stroke-dasharray="62.8 189.2" stroke-dashoffset="-188.4" stroke-width="14"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-accent">26.4</span>
+<span class="text-xs font-black text-slate-500 uppercase tracking-widest">Avg Age</span>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4">
+<div class="size-4 rounded-full bg-[#4F46E5] shrink-0"></div>
+<div class="flex flex-col">
+<span class="text-lg font-black text-accent">18-24</span>
+<span class="text-sm font-bold text-slate-600">40% of total</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-4 rounded-full bg-[#0D9488] shrink-0"></div>
+<div class="flex flex-col">
+<span class="text-lg font-black text-accent">25-34</span>
+<span class="text-sm font-bold text-slate-600">35% of total</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-4 rounded-full bg-[#D97706] shrink-0"></div>
+<div class="flex flex-col">
+<span class="text-lg font-black text-accent">35+</span>
+<span class="text-sm font-bold text-slate-600">25% of total</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="md:col-span-3 bg-white border-2 border-primary/20 rounded-2xl p-8 shadow-sm">
+<div class="flex items-start gap-6">
+<div class="bg-primary p-3 rounded-xl shrink-0">
+<span class="material-symbols-outlined text-white font-bold">auto_awesome</span>
+</div>
+<div>
+<h4 class="text-xl font-black text-accent mb-2">Automated Insight Summary</h4>
+<p class="text-slate-700 font-medium text-lg leading-relaxed">
+                                Current trends indicate a significant <span class="text-primary font-black">12% increase</span> in employment-based immigration compared to the previous quarter. The primary demographic remains young professionals aged 18-34, who account for <span class="text-primary font-black">75%</span> of the total respondent pool.
+                            </p>
+</div>
+</div>
+</div>
+<div class="bg-accent text-white rounded-2xl p-8 flex flex-col justify-between hover:bg-black transition-all cursor-pointer group shadow-lg">
+<div>
+<span class="material-symbols-outlined text-primary mb-6 scale-125 block group-hover:scale-150 transition-transform">map</span>
+<h4 class="text-xl font-black">Spatial Analysis</h4>
+<p class="text-sm text-slate-300 font-medium mt-2 leading-snug">Visualize data by region and city of arrival.</p>
+</div>
+<div class="flex items-center text-primary text-sm font-black mt-6 tracking-widest">
+                        EXPLORE MAP <span class="material-symbols-outlined text-lg ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full border-t border-gray-200 py-10 px-10 bg-white">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-base font-bold text-slate-600">© 2023 University Research Project. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="text-sm font-bold text-slate-600 hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Privacy Policy</a>
+<a class="text-sm font-bold text-slate-600 hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Methodology</a>
+<a class="text-sm font-bold text-slate-600 hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</div>
+
+</body></html>
