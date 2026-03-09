@@ -1,11 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import SurveyResponse
-
-
-def is_staff_user(user):
-    """Check if user is staff (admin)"""
-    return user.is_authenticated and user.is_staff
 
 
 def survey_form(request):
@@ -32,14 +26,8 @@ def thanks(request):
     return render(request, 'survey/thanks.html')
 
 
-def access_denied(request):
-    """Access denied page for non-admin users"""
-    return render(request, 'survey/access_denied.html')
-
-
-@user_passes_test(is_staff_user, login_url='/access-denied/')
 def results(request):
-    """Screen 3 — Results dashboard at /results/ (admin only)"""
+    """Screen 3 — Results dashboard at /results/ (public access)"""
 
     total = SurveyResponse.objects.count()
 

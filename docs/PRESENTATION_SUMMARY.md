@@ -51,7 +51,7 @@
 ### 2.3 Results Dashboard (Screen 3)
 **URL:** `/results/`
 
-- **Login required** (only logged-in users can see this page)
+- **Public access** (anyone can view aggregated statistics)
 - Shows statistics:
   - Total number of responses
   - Bar chart: responses by reason
@@ -61,10 +61,12 @@
 ### 2.4 Admin Panel
 **URL:** `/admin/`
 
+- **Admin login required** (username: `admin`, password: `123`)
 - Django Admin access
-- View all survey responses
+- View all individual survey responses
 - Filter by selected reason
 - Edit or delete responses
+- Full control over survey data
 
 ---
 
@@ -132,7 +134,7 @@ research_project/
 
 ### 4.3 Automation
 - Automatic database migrations
-- Built-in authentication system
+- Built-in authentication system (for admin panel)
 - Automatic form validation
 
 ---
@@ -230,10 +232,11 @@ For the presentation, we recommend showing:
 1. **Complete user flow:**
    - Fill out survey form
    - See thank you page
-   - Access results dashboard (with login)
+   - View public results dashboard (no login needed)
 
 2. **Admin panel:**
-   - Show list of responses
+   - Login with admin credentials
+   - Show list of individual responses
    - Demonstrate available filters
 
 3. **Technical code (optional):**
@@ -245,17 +248,18 @@ For the presentation, we recommend showing:
 
 ## 11. Key Features Summary
 
-### User Features
+### Public Features
 - Simple and clean survey form
 - Immediate feedback after submission
-- Visual data representation with charts
+- Public results dashboard with interactive charts
 - Mobile-responsive design
+- Transparent data visualization
 
 ### Admin Features
-- Secure login system
-- Full control over survey data
+- Secure login system for admin panel
+- Full control over individual survey responses
 - Filter and search capabilities
-- Data export via Django Admin
+- Edit and delete individual responses
 
 ### Technical Features
 - RESTful URL structure

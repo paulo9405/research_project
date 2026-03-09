@@ -122,20 +122,20 @@ http://127.0.0.1:8000/
 http://127.0.0.1:8000/thanks/
 ```
 - Should show a green checkmark and a thank you message
-- Click **Explore the Results** — it will ask you to log in
+- Click **Explore the Results** — it will take you to the results dashboard
 
 ---
 
-### Page 3 — Results Dashboard (login required)
+### Page 3 — Results Dashboard (public access)
 ```
 http://127.0.0.1:8000/results/
 ```
-- You will be redirected to the login page automatically
-- Log in with the superuser you created in Step 5
-- After login you should see:
+- No login required — this page is publicly accessible
+- You should see:
   - Total number of responses
   - Bar chart with reasons
   - Doughnut chart with age groups
+- Anyone can view the aggregated statistics
 
 ---
 
@@ -170,7 +170,7 @@ python manage.py runserver
 |---------|----------|
 | `No module named django` | Run `source venv/bin/activate` first |
 | `Table not found` error | Run `python manage.py migrate` |
-| Results page shows login form | That is correct — log in with your superuser |
+| Admin panel asks for login | Use username: `admin`, password: `123` |
 | Port 8000 already in use | Use `python manage.py runserver 8001` |
 | `python: command not found` | Use `python3` instead of `python` |
 

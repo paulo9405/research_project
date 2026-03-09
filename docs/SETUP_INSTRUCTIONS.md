@@ -132,30 +132,37 @@ python manage.py runserver
 Open your browser and test these pages:
 
 - **Survey Form:** http://127.0.0.1:8000/ (public access)
+- **Thank You Page:** http://127.0.0.1:8000/thanks/ (public access)
+- **Results Dashboard:** http://127.0.0.1:8000/results/ (public access)
 - **Admin Panel:** http://127.0.0.1:8000/admin/ (login required)
-- **Results Dashboard:** http://127.0.0.1:8000/results/ (admin login required)
 
-**Note:** The Results Dashboard is only accessible to admin users. If you try to access it without logging in, you will see an "Access Restricted" page with a button to log in as admin.
+**Note:** The Results Dashboard is publicly accessible so anyone who completes the survey can view the aggregated statistics. Only the Admin Panel requires login credentials to access individual survey responses.
 
 ---
 
 ## Accessing the Results Dashboard
 
-The Results Dashboard shows charts and statistics about survey responses. **Only admin users can access this page.**
+The Results Dashboard shows charts and statistics about survey responses. **This page is publicly accessible** - anyone can view the aggregated data.
+
+Simply go to: http://127.0.0.1:8000/results/
+
+You can also click the **"Results"** link in the navigation menu.
+
+---
+
+## Accessing the Admin Panel
+
+The Admin Panel allows you to view, edit, and manage individual survey responses. **Only admin users can access this area.**
 
 ### How to Access:
 
-1. Go to http://127.0.0.1:8000/results/
-2. If not logged in, you'll see an "Access Restricted" page
-3. Click the **"Admin Login"** button
-4. Enter your admin credentials:
+1. Go to http://127.0.0.1:8000/admin/
+2. Enter your admin credentials:
    - Username: `admin`
    - Password: `123`
-5. After login, you will be redirected to the Results Dashboard
+3. You will have access to view and manage all survey responses
 
-### Alternative Access:
-
-You can also access the results from the navigation menu after logging in as admin.
+You can also click the **"Admin"** link in the navigation menu.
 
 ---
 

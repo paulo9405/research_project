@@ -16,8 +16,8 @@ A simple Django web application to collect survey responses about why people cho
 |--------|-----|-------------|
 | **Survey Form** | `/` | Main question with 5 predefined options + "Other" with text field. Collects 5 personal fields. Submits to database. |
 | **Thank You** | `/thanks/` | Confirmation message after submission. Button to explore results. |
-| **Results Dashboard** | `/results/` | Aggregated data: total respondents, chart by reason, chart by age group. **Login required.** |
-| **Admin Panel** | `/admin/` | Django Admin for managing responses (built-in). |
+| **Results Dashboard** | `/results/` | Aggregated data: total respondents, chart by reason, chart by age group. **Public access.** |
+| **Admin Panel** | `/admin/` | Django Admin for managing individual responses. **Login required.** |
 
 ---
 
@@ -220,7 +220,7 @@ Every PR must include:
 
 ### Phase 4: Results Dashboard (Screen 3)
 
-**Goal:** Build the protected results page at `/results/`
+**Goal:** Build the public results page at `/results/`
 
 | Task | Assigned To | Branch |
 |------|-------------|--------|
@@ -230,7 +230,6 @@ Every PR must include:
 | Display total respondents (card/stat box) | Humberto | `humberto` |
 | Add Chart.js for "Reasons" bar/pie chart | Humberto | `humberto` |
 | Add Chart.js for "Age Groups" chart (18-24, 25-34, 35+) | Humberto | `humberto` |
-| Add `@login_required` decorator to protect page | Humberto | `humberto` |
 | Configure URL route for `/results/` | Humberto | `humberto` |
 | Open PR → Paulo reviews and merges | Paulo | `main` |
 
@@ -243,21 +242,19 @@ Every PR must include:
 - [ ] Page shows total number of responses
 - [ ] Chart displays count per reason
 - [ ] Chart displays count per age group
-- [ ] Page requires login to access
-- [ ] Non-logged users are redirected to login page
+- [ ] Page is publicly accessible (no login required)
 - [ ] Charts render correctly with real data
 
 ---
 
-### Phase 5: Authentication & Polish
+### Phase 5: Admin Panel & Polish
 
-**Goal:** Configure Django authentication and UI improvements
+**Goal:** Configure Django Admin and UI improvements
 
 | Task | Assigned To | Branch |
 |------|-------------|--------|
-| Configure Django login view | Paulo | `paulo` |
-| Create simple `login.html` template | Paulo | `paulo` |
-| Add login/logout links to navbar | Paulo | `paulo` |
+| Configure Django Admin panel | Paulo | `paulo` |
+| Add admin link to navbar | Paulo | `paulo` |
 | Review all pages for UI consistency | Larissa | `larissa` |
 | Add project footer with team info | Matheus | `matheus` |
 | Test all navigation flows | All | — |
@@ -265,9 +262,9 @@ Every PR must include:
 | Open PRs → Paulo reviews and merges | Paulo | `main` |
 
 **Definition of Done:**
-- [ ] Login page works and styled with Bootstrap
-- [ ] Results page redirects to login if not authenticated
-- [ ] Navbar shows correct links based on login state
+- [ ] Admin panel accessible at `/admin/`
+- [ ] Admin login works correctly
+- [ ] Navbar has link to admin panel
 - [ ] All pages have consistent styling
 - [ ] No broken links or navigation errors
 
@@ -285,7 +282,7 @@ Every PR must include:
 | Test thank you page redirect | Matheus | — |
 | Test results page with 0 responses | Humberto | — |
 | Test results page with multiple responses | Humberto | — |
-| Test login protection on results page | Paulo | — |
+| Test admin panel login and data access | Paulo | — |
 | Test on mobile device/responsive | All | — |
 | Document any bugs found | All | — |
 | Fix critical bugs | Assigned per bug | — |
@@ -316,7 +313,8 @@ Every PR must include:
 **Definition of Done:**
 - [ ] Application accessible via public URL
 - [ ] Survey form works in production
-- [ ] Results page works with login
+- [ ] Results page publicly accessible
+- [ ] Admin panel accessible with login
 - [ ] QR code generated and ready for sharing
 
 ---
