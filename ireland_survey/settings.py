@@ -125,3 +125,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login configuration
+# Redirect to admin login when user tries to access protected pages
+LOGIN_URL = '/admin/'
+# After admin login, redirect to results dashboard
+LOGIN_REDIRECT_URL = '/results/'

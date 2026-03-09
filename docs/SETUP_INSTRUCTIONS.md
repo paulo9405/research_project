@@ -101,15 +101,19 @@ python manage.py migrate
 
 ---
 
-### Step 8: Create a Superuser (Optional)
+### Step 8: Create a Superuser
 
 ```bash
 python manage.py createsuperuser
-
-each member has to create your own user, with this usar you will get into administration
 ```
 
-**What this does:** Creates an admin account so you can access `/admin/`. Enter username, email, and password when prompted.
+**What this does:** Creates an admin account so you can access `/admin/` and view the results dashboard.
+
+**Default credentials for testing:**
+- **Username:** admin
+- **Password:** 123
+
+**Important:** Each team member can create their own admin user if needed. You need admin access to view the Results Dashboard at `/results/`.
 
 ---
 
@@ -125,10 +129,33 @@ python manage.py runserver
 
 ### Step 10: Test the Setup
 
-Open your browser:
+Open your browser and test these pages:
 
-- **Admin Panel:** http://127.0.0.1:8000/admin/ (should work)
-- **Main Site:** http://127.0.0.1:8000/ (will show error - this is expected until Phase 2)
+- **Survey Form:** http://127.0.0.1:8000/ (public access)
+- **Admin Panel:** http://127.0.0.1:8000/admin/ (login required)
+- **Results Dashboard:** http://127.0.0.1:8000/results/ (admin login required)
+
+**Note:** The Results Dashboard is only accessible to admin users. If you try to access it without logging in, you will see an "Access Restricted" page with a button to log in as admin.
+
+---
+
+## Accessing the Results Dashboard
+
+The Results Dashboard shows charts and statistics about survey responses. **Only admin users can access this page.**
+
+### How to Access:
+
+1. Go to http://127.0.0.1:8000/results/
+2. If not logged in, you'll see an "Access Restricted" page
+3. Click the **"Admin Login"** button
+4. Enter your admin credentials:
+   - Username: `admin`
+   - Password: `123`
+5. After login, you will be redirected to the Results Dashboard
+
+### Alternative Access:
+
+You can also access the results from the navigation menu after logging in as admin.
 
 ---
 
