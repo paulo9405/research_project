@@ -105,6 +105,8 @@ python manage.py migrate
 
 ```bash
 python manage.py createsuperuser
+
+each member has to create your own user, with this usar you will get into administration
 ```
 
 **What this does:** Creates an admin account so you can access `/admin/`. Enter username, email, and password when prompted.
