@@ -22,129 +22,30 @@ Render is a cloud platform where you can host web applications for free. It's pe
 Make sure you have:
 
 - [x] GitHub account (you already have this)
-- [x] Your project pushed to GitHub repository
+- [x] Updated project code (run `git pull origin main`)
 - [x] 15-20 minutes of free time
 
----
-
-## Step 1: Prepare Your Project Files
-
-Before deploying, we need to add some configuration files to our project.
-
-### 1.1 Create `runtime.txt`
-
-This file tells Render which Python version to use.
-
-Create a new file in the **root folder** (same level as `manage.py`) called `runtime.txt`:
-
-```
-python-3.11.0
-```
-
-**Save this file.**
+**Important:** All configuration files are already prepared in the repository. You just need to follow this guide to deploy!
 
 ---
 
-### 1.2 Create `build.sh`
+## Step 1: Pull Latest Changes
 
-This file contains commands that Render will run to set up your project.
-
-Create a new file in the **root folder** called `build.sh`:
+First, make sure you have all the latest deployment files:
 
 ```bash
-#!/usr/bin/env bash
-# exit on error
-set -o errexit
-
-pip install -r requirements.txt
-
-python manage.py collectstatic --no-input
-python manage.py migrate
+cd ~/projects/research_project
+git checkout your-branch-name
+git pull origin main
 ```
 
-**Save this file.**
+You should see these files in your project:
+- ✅ `runtime.txt` - Python version configuration
+- ✅ `build.sh` - Build script for Render
+- ✅ `requirements.txt` - Updated with deployment packages
+- ✅ `settings.py` - Already configured for production
 
----
-
-### 1.3 Update `requirements.txt`
-
-Make sure your `requirements.txt` includes these packages:
-
-```
-Django==4.2.16
-gunicorn==21.2.0
-whitenoise==6.6.0
-python-dotenv==1.0.0
-```
-
-**Save this file.**
-
----
-
-### 1.4 Update `settings.py`
-
-We need to make some changes to `settings.py` for production.
-
-**Open:** `ireland_survey/settings.py`
-
-#### Change 1: Add Whitenoise to serve static files
-
-Find the `MIDDLEWARE` list and add `whitenoise` **after** `SecurityMiddleware`:
-
-```python
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ADD THIS LINE
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-```
-
-#### Change 2: Update `ALLOWED_HOSTS`
-
-Find this line:
-```python
-ALLOWED_HOSTS = []
-```
-
-Replace it with:
-```python
-ALLOWED_HOSTS = ['*']
-```
-
-**Note:** This allows any domain. After deployment, you can change `'*'` to your specific Render URL for better security.
-
-#### Change 3: Configure static files
-
-At the **bottom** of `settings.py`, replace the static files section with:
-
-```python
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Whitenoise configuration
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-```
-
-**Save this file.**
-
----
-
-### 1.5 Push Changes to GitHub
-
-Now push all these new files to GitHub:
-
-```bash
-git add .
-git commit -m "Add Render deployment configuration"
-git push origin main
-```
+**Everything is ready! Let's deploy!** 🚀
 
 ---
 
@@ -397,20 +298,17 @@ If you need permanent data storage, you can upgrade to PostgreSQL (also free on 
 
 ## Summary Checklist
 
-Before deployment, make sure you have:
+Deployment checklist:
 
-- [ ] `runtime.txt` with Python version
-- [ ] `build.sh` with build commands
-- [ ] Updated `requirements.txt` with gunicorn and whitenoise
-- [ ] Updated `settings.py` with production settings
-- [ ] Pushed all changes to GitHub `main` branch
+- [ ] Pulled latest changes from main branch (`git pull origin main`)
 - [ ] Created Render account
-- [ ] Connected GitHub repository
+- [ ] Connected GitHub repository to Render
 - [ ] Configured web service correctly
 - [ ] Added environment variables
-- [ ] Created admin user in production
-- [ ] Tested all pages
-- [ ] Generated QR code
+- [ ] Waited for build to complete (5-10 minutes)
+- [ ] Created admin user in production via Shell
+- [ ] Tested all pages (survey, thanks, results, admin)
+- [ ] Generated QR code for sharing
 
 ---
 
