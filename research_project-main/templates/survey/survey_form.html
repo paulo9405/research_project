@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+
+{% block title %}Why did you choose to live in Ireland?{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ── Step machine ── */
+  .step { display: none; animation: fadeSlideIn 0.4s ease; }
+  .step.active { display: block; }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Option cards ── */
+  .option-card {
+    cursor: pointer;
+    border: 2px solid #DEE2E6;
+    border-radius: 14px;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+    user-select: none;
+  }
+  .option-card:hover {
+    border-color: #008751;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,135,81,0.12);
+  }
+  .option-card.selected {
+    border-color: #008751 !important;
+    color: #008751 !important;
+    background: #f0faf5;
+    box-shadow: 0 6px 18px rgba(0,135,81,0.18);
+  }
+
+  /* ── Progress dots ── */
+  .step-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 28px; }
+  .step-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #DEE2E6;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .step-dot.done  { background: #008751; }
+  .step-dot.active { background: #008751; transform: scale(1.35); }
+
+  /* ── Progress bar ── */
+  .progress-bar { transition: width 0.4s ease; }
+
+  /* ── Nav buttons ── */
+  .btn-next, .btn-back {
+    border-radius: 50px;
+    font-size: 15px;
+    padding: 10px 32px;
+    font-weight: 600;
+  }
+  .btn-back {
+    background: transparent;
+    border: 2px solid #DEE2E6;
+    color: #666;
+  }
+  .btn-back:hover { border-color: #aaa; color: #333; }
+
+  /* ── Two-col option layout (Yes/No) ── */
+  .options-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .options-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .options-4col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  @media (min-width: 600px) {
+    .options-4col { grid-template-columns: repeat(4, 1fr); }
+    .options-3col { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .option-pill {
+    cursor: pointer;
+    border: 2px solid #DEE2E6;
+    border-radius: 50px;
+    padding: 14px 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .option-pill:hover  { border-color: #008751; color: #008751; }
+  .option-pill.selected { border-color: #008751; color: #008751; background: #f0faf5; }
+
+  /* ── Icon cards (reason) ── */
+  .reason-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (min-width: 600px) { .reason-grid { grid-template-columns: repeat(5, 1fr); } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="text-center mb-4">
+    <h1 class="fw-bold" style="font-size:2.2rem;">
+      Why did you choose to<br>
+      <span style="color:var(--primary-color);">live in Ireland?</span>
+    </h1>
+    <p class="text-muted mt-2">Your insights help us understand the landscape of immigration and quality of life in Ireland.</p>
+  </div>
+
+  <div class="card mx-auto p-4 p-md-5" style="max-width:760px;">
+
+    <!-- Progress bar -->
+    <div class="d-flex justify-content-between align-items-center mb-1">
+      <small class="text-muted fw-semibold" id="step-label">Step 1 of 7</small>
+      <small class="text-muted" id="step-pct">14%</small>
+    </div>
+    <div class="progress mb-4" style="height:6px;">
+      <div class="progress-bar bg-success" id="progress-bar" style="width:14%;"></div>
+    </div>
+
+    <!-- Dots -->
+    <div class="step-dots" id="step-dots">
+      <div class="step-dot active" data-dot="0"></div>
+      <div class="step-dot" data-dot="1"></div>
+      <div class="step-dot" data-dot="2"></div>
+      <div class="step-dot" data-dot="3"></div>
+      <div class="step-dot" data-dot="4"></div>
+      <div class="step-dot" data-dot="5"></div>
+      <div class="step-dot" data-dot="6"></div>
+    </div>
+
+    <form method="POST" id="survey-form">
+      {% csrf_token %}
+
+      <!-- Hidden inputs (filled by JS) -->
+      <input type="hidden" name="reason"            id="val-reason">
+      <input type="hidden" name="reason_other"      id="val-reason-other">
+      <input type="hidden" name="time_in_ireland"   id="val-time">
+      <input type="hidden" name="status_in_ireland" id="val-status">
+      <input type="hidden" name="employed"          id="val-employed">
+      <input type="hidden" name="cost_of_living"    id="val-cost">
+      <input type="hidden" name="plan_to_stay"      id="val-stay">
+
+      <!-- ══ STEP 1 — Main reason ══ -->
+      <div class="step active" id="step-0">
+        <h5 class="fw-bold mb-1">Main Reason for Moving</h5>
+        <p class="text-muted small mb-4">What brought you to Ireland?</p>
+        <div class="reason-grid mb-3" id="reason-cards">
+          <div class="option-card card text-center p-3" data-value="learn_english" data-target="val-reason">
+            <i class="bi bi-mortarboard fs-2 mb-2"></i>
+            <span class="fw-semibold d-block">Learn English</span>
+            <small class="text-muted">EDUCATION</small>
+          </div>
+          <div class="option-card card text-center p-3" data-value="job" data-target="val-reason">
+            <i class="bi bi-briefcase fs-2 mb-2"></i>
+            <span class="fw-semibold d-block">Job Opportunities</span>
+            <small class="text-muted">EMPLOYMENT</small>
+          </div>
+          <div class="option-card card text-center p-3" data-value="quality_life" data-target="val-reason">
+            <i class="bi bi-heart fs-2 mb-2"></i>
+            <span class="fw-semibold d-block">Quality of Life</span>
+            <small class="text-muted">LIFESTYLE</small>
+          </div>
+          <div class="option-card card text-center p-3" data-value="career" data-target="val-reason">
+            <i class="bi bi-graph-up-arrow fs-2 mb-2"></i>
+            <span class="fw-semibold d-block">Career / Future</span>
+            <small class="text-muted">PROSPECTS</small>
+          </div>
+          <div class="option-card card text-center p-3" data-value="other" data-target="val-reason">
+            <i class="bi bi-three-dots fs-2 mb-2"></i>
+            <span class="fw-semibold d-block">Other</span>
+            <small class="text-muted">OTHER</small>
+          </div>
+        </div>
+        <div id="other-field" class="mb-3 d-none">
+          <label class="form-label text-muted" style="font-size:13px;">PLEASE SPECIFY</label>
+          <input type="text" class="form-control" id="reason-other-input" placeholder="Tell us your reason…">
+        </div>
+        <div class="text-end mt-4">
+          <button type="button" class="btn btn-primary btn-next" data-req="val-reason">Next <i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 2 — Time in Ireland ══ -->
+      <div class="step" id="step-1">
+        <h5 class="fw-bold mb-1">How long have you been living in Ireland?</h5>
+        <p class="text-muted small mb-4">Select the option that best fits your situation.</p>
+        <div class="options-2col mb-3">
+          <div class="option-pill" data-value="less_6m"  data-target="val-time">Less than 6 months</div>
+          <div class="option-pill" data-value="6_12m"    data-target="val-time">6–12 months</div>
+          <div class="option-pill" data-value="1_3y"     data-target="val-time">1–3 years</div>
+          <div class="option-pill" data-value="3y_plus"  data-target="val-time">3+ years</div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-back btn-prev">← Back</button>
+          <button type="button" class="btn btn-primary btn-next" data-req="val-time">Next <i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 3 — Status ══ -->
+      <div class="step" id="step-2">
+        <h5 class="fw-bold mb-1">What is your current status in Ireland?</h5>
+        <p class="text-muted small mb-4">How would you describe your primary role?</p>
+        <div class="options-4col mb-3">
+          <div class="option-pill" data-value="student" data-target="val-status">🎓 Student</div>
+          <div class="option-pill" data-value="worker"  data-target="val-status">💼 Worker</div>
+          <div class="option-pill" data-value="both"    data-target="val-status">⚡ Both</div>
+          <div class="option-pill" data-value="other"   data-target="val-status">✦ Other</div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-back btn-prev">← Back</button>
+          <button type="button" class="btn btn-primary btn-next" data-req="val-status">Next <i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 4 — Employed ══ -->
+      <div class="step" id="step-3">
+        <h5 class="fw-bold mb-1">Are you currently employed?</h5>
+        <p class="text-muted small mb-4">Include part-time, freelance or self-employed work.</p>
+        <div class="options-2col mb-3">
+          <div class="option-pill" data-value="yes" data-target="val-employed">✅ Yes</div>
+          <div class="option-pill" data-value="no"  data-target="val-employed">❌ No</div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-back btn-prev">← Back</button>
+          <button type="button" class="btn btn-primary btn-next" data-req="val-employed">Next <i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 5 — Cost of living ══ -->
+      <div class="step" id="step-4">
+        <h5 class="fw-bold mb-1">Do you feel the cost of living is high?</h5>
+        <p class="text-muted small mb-4">Think about housing, food, transport and daily expenses.</p>
+        <div class="options-3col mb-3">
+          <div class="option-pill" data-value="yes"     data-target="val-cost">😬 Yes</div>
+          <div class="option-pill" data-value="no"      data-target="val-cost">😌 No</div>
+          <div class="option-pill" data-value="neutral" data-target="val-cost">😐 Neutral</div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-back btn-prev">← Back</button>
+          <button type="button" class="btn btn-primary btn-next" data-req="val-cost">Next <i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 6 — Plan to stay ══ -->
+      <div class="step" id="step-5">
+        <h5 class="fw-bold mb-1">Do you plan to stay in Ireland long-term?</h5>
+        <p class="text-muted small mb-4">Long-term meaning 5+ years.</p>
+        <div class="options-3col mb-3">
+          <div class="option-pill" data-value="yes"      data-target="val-stay">🏠 Yes</div>
+          <div class="option-pill" data-value="no"       data-target="val-stay">✈️ No</div>
+          <div class="option-pill" data-value="not_sure" data-target="val-stay">🤔 Not sure</div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-back btn-prev">← Back</button>
+          <button type="button" class="btn btn-primary btn-next" data-req="val-stay">Next <i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 7 — Personal Info ══ -->
+      <div class="step" id="step-6">
+        <h5 class="fw-bold mb-3">Personal Information</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:13px;">FULL NAME</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-person"></i></span>
+              <input type="text"   name="full_name"   class="form-control" placeholder="e.g. Liam O'Sullivan" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:13px;">CURRENT CITY</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-geo-alt"></i></span>
+              <input type="text"   name="city"        class="form-control" placeholder="e.g. Dublin" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:13px;">NATIONALITY</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-globe"></i></span>
+              <input type="text"   name="nationality" class="form-control" placeholder="Your origin country" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:13px;">EMAIL ADDRESS</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+              <input type="email"  name="email"       class="form-control" placeholder="email@address.com" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted" style="font-size:13px;">AGE</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white"><i class="bi bi-calendar"></i></span>
+              <input type="number" name="age"         class="form-control" placeholder="e.g. 25" min="1" max="120" required>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-back btn-prev">← Back</button>
+          <button type="submit" class="btn btn-primary btn-next px-5">
+            Submit Survey <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+        </div>
+        <p class="text-muted text-center mt-3"><small>By submitting, you agree to our academic data privacy guidelines.</small></p>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  const TOTAL = 7;
+  let current = 0;
+
+  const steps    = document.querySelectorAll('.step');
+  const dots     = document.querySelectorAll('.step-dot');
+  const label    = document.getElementById('step-label');
+  const pct      = document.getElementById('step-pct');
+  const bar      = document.getElementById('progress-bar');
+
+  function updateUI() {
+    steps.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.remove('active', 'done');
+      if (i < current)  d.classList.add('done');
+      if (i === current) d.classList.add('active');
+    });
+    const progress = Math.round(((current + 1) / TOTAL) * 100);
+    bar.style.width   = progress + '%';
+    label.textContent = `Step ${current + 1} of ${TOTAL}`;
+    pct.textContent   = progress + '%';
+  }
+
+  // ── Option card / pill click ──
+  document.querySelectorAll('.option-card, .option-pill').forEach(function (el) {
+    el.addEventListener('click', function () {
+      const target = this.dataset.target;
+      const value  = this.dataset.value;
+
+      // Deselect siblings (same target)
+      document.querySelectorAll(`[data-target="${target}"]`).forEach(function (s) {
+        s.classList.remove('selected');
+      });
+      this.classList.add('selected');
+      document.getElementById(target).value = value;
+
+      // Show/hide "Other" text field on step 1
+      if (target === 'val-reason') {
+        const otherField = document.getElementById('other-field');
+        if (value === 'other') {
+          otherField.classList.remove('d-none');
+        } else {
+          otherField.classList.add('d-none');
+          document.getElementById('val-reason-other').value = '';
+        }
+      }
+
+      // Auto-advance after short delay for pill-only steps
+      if (el.classList.contains('option-pill')) {
+        setTimeout(function () {
+          if (current < TOTAL - 1) {
+            current++;
+            updateUI();
+          }
+        }, 280);
+      }
+    });
+  });
+
+  // Sync "Other" text
+  document.getElementById('reason-other-input').addEventListener('input', function () {
+    document.getElementById('val-reason-other').value = this.value;
+  });
+
+  // ── Next buttons ──
+  document.querySelectorAll('.btn-next').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const req = this.dataset.req;
+      if (req) {
+        const val = document.getElementById(req).value;
+        if (!val) {
+          // Flash the step to signal selection is required
+          const stepEl = steps[current];
+          stepEl.style.opacity = '0.5';
+          setTimeout(function () { stepEl.style.opacity = '1'; }, 220);
+          return;
+        }
+      }
+      if (current < TOTAL - 1) {
+        current++;
+        updateUI();
+      }
+    });
+  });
+
+  // ── Back buttons ──
+  document.querySelectorAll('.btn-prev').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (current > 0) {
+        current--;
+        updateUI();
+      }
+    });
+  });
+
+  updateUI();
+})();
+</script>
+{% endblock %}

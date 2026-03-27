@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block title %}Results Dashboard — Ireland Data Project{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  /* ── Animated counter ── */
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .metric-card { animation: countUp 0.6s ease both; }
+  .metric-card:nth-child(2) { animation-delay: 0.1s; }
+  .metric-card:nth-child(3) { animation-delay: 0.2s; }
+
+  .big-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+    transition: all 0.4s ease;
+  }
+
+  /* ── Chart cards slide in ── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .chart-card {
+    animation: slideUp 0.55s ease both;
+    border-radius: 16px !important;
+  }
+  .chart-card:nth-child(1) { animation-delay: 0.15s; }
+  .chart-card:nth-child(2) { animation-delay: 0.25s; }
+  .chart-card:nth-child(3) { animation-delay: 0.35s; }
+  .chart-card:nth-child(4) { animation-delay: 0.45s; }
+  .chart-card:nth-child(5) { animation-delay: 0.55s; }
+  .chart-card:nth-child(6) { animation-delay: 0.65s; }
+
+  /* ── Live badge ── */
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff0f0;
+    color: #c0392b;
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #e74c3c;
+    animation: pulse-dot 1.2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* ── Stat pill ── */
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .stat-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 50px;
+    margin: 0 12px;
+    overflow: hidden;
+  }
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1s cubic-bezier(.22,1,.36,1);
+    background: var(--primary-color);
+  }
+  .stat-count {
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 28px;
+    text-align: right;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-2">
+    <div>
+      <h1 class="fw-bold mb-0">Data Visualization</h1>
+      <p class="text-muted mb-0">Live results — updates every 15 seconds automatically.</p>
+    </div>
+    <div>
+      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+    </div>
+  </div>
+
+  <!-- Metric cards -->
+  <div class="row g-3 mb-4" id="metric-row">
+    <div class="col-6 col-md-3">
+      <div class="card p-4 metric-card text-center">
+        <small class="text-muted text-uppercase mb-1">Total Respondents</small>
+        <div class="big-number" id="stat-total">–</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card p-4 metric-card text-center">
+        <small class="text-muted text-uppercase mb-1">Employed</small>
+        <div class="big-number" id="stat-employed" style="color:var(--secondary-color);">–</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card p-4 metric-card text-center">
+        <small class="text-muted text-uppercase mb-1">Plan to Stay</small>
+        <div class="big-number" id="stat-stay" style="color:#e67e22;">–</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card p-4 metric-card text-center">
+        <small class="text-muted text-uppercase mb-1">High Cost of Living</small>
+        <div class="big-number" id="stat-cost" style="color:#c0392b;">–</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts grid -->
+  <div class="row g-4">
+
+    <!-- Reasons -->
+    <div class="col-md-6">
+      <div class="card p-4 chart-card">
+        <h5 class="fw-bold mb-1">Primary Reasons for Moving</h5>
+        <p class="text-muted small mb-3">Main factors for immigrating to Ireland</p>
+        <canvas id="reasonsChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Age -->
+    <div class="col-md-6">
+      <div class="card p-4 chart-card">
+        <h5 class="fw-bold mb-1">Age Demographics</h5>
+        <p class="text-muted small mb-3">Age group distribution of survey participants</p>
+        <canvas id="ageChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Time in Ireland — bar pills -->
+    <div class="col-md-6">
+      <div class="card p-4 chart-card">
+        <h5 class="fw-bold mb-1">Time Living in Ireland</h5>
+        <p class="text-muted small mb-3">How long respondents have been in Ireland</p>
+        <div id="time-pills"></div>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="col-md-6">
+      <div class="card p-4 chart-card">
+        <h5 class="fw-bold mb-1">Current Status</h5>
+        <p class="text-muted small mb-3">Student / Worker / Both / Other</p>
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Cost of living -->
+    <div class="col-md-6">
+      <div class="card p-4 chart-card">
+        <h5 class="fw-bold mb-1">Cost of Living Perception</h5>
+        <p class="text-muted small mb-3">Is Ireland expensive?</p>
+        <canvas id="costChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Plan to stay -->
+    <div class="col-md-6">
+      <div class="card p-4 chart-card">
+        <h5 class="fw-bold mb-1">Plans to Stay Long-Term</h5>
+        <p class="text-muted small mb-3">5+ years in Ireland</p>
+        <canvas id="stayChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ── Palette ──
+const GREEN  = '#008751';
+const BLUE   = '#005A9C';
+const ORANGE = '#e67e22';
+const RED    = '#c0392b';
+const GRAY   = '#95a5a6';
+const YELLOW = '#f1c40f';
+
+const PALETTE = [GREEN, BLUE, ORANGE, RED, GRAY, YELLOW];
+
+// ── Chart instances (so we can update them) ──
+let charts = {};
+
+function makeOrUpdate(id, type, labels, data, colors) {
+  if (charts[id]) {
+    charts[id].data.labels   = labels;
+    charts[id].data.datasets[0].data            = data;
+    charts[id].data.datasets[0].backgroundColor = colors;
+    charts[id].update('active');
+    return;
+  }
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  const opts = {
+    responsive: true,
+    animation: { duration: 800, easing: 'easeOutQuart' },
+    plugins: { legend: { display: type === 'doughnut', position: 'right' } },
+  };
+  if (type === 'bar') {
+    opts.scales = { y: { beginAtZero: true, ticks: { precision: 0 } } };
+    opts.plugins.legend = { display: false };
+  }
+  charts[id] = new Chart(ctx, {
+    type,
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: colors, borderRadius: type === 'bar' ? 6 : 0 }]
+    },
+    options: opts,
+  });
+}
+
+// ── Animated counter ──
+function animateNumber(el, target) {
+  const start    = parseInt(el.textContent) || 0;
+  const duration = 700;
+  const startTs  = performance.now();
+  function step(ts) {
+    const progress = Math.min((ts - startTs) / duration, 1);
+    el.textContent = Math.round(start + (target - start) * progress);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ── Pill bar (time in Ireland) ──
+function renderPills(containerId, data, total) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const entries = Object.entries(data);
+  container.innerHTML = entries.map(([label, count]) => {
+    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+    return `
+      <div class="stat-pill">
+        <span style="min-width:130px;">${label}</span>
+        <div class="stat-bar-wrap"><div class="stat-bar-fill" style="width:0%" data-target="${pct}%"></div></div>
+        <span class="stat-count">${count}</span>
+      </div>`;
+  }).join('');
+  // Trigger CSS transition after paint
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.stat-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.target;
+    });
+  });
+}
+
+// ── Fetch & render ──
+function loadData() {
+  fetch('/results/data/')
+    .then(r => r.json())
+    .then(d => {
+      const total = d.total || 0;
+
+      // Metric numbers
+      animateNumber(document.getElementById('stat-total'),    total);
+      animateNumber(document.getElementById('stat-employed'), d.employed?.['Employed'] || 0);
+      animateNumber(document.getElementById('stat-stay'),     d.stay?.['Yes'] || 0);
+      animateNumber(document.getElementById('stat-cost'),     d.cost?.['Yes'] || 0);
+
+      // Reasons bar
+      makeOrUpdate('reasonsChart', 'bar',
+        Object.keys(d.reasons || {}),
+        Object.values(d.reasons || {}),
+        PALETTE
+      );
+
+      // Age doughnut
+      makeOrUpdate('ageChart', 'doughnut',
+        Object.keys(d.age_groups || {}),
+        Object.values(d.age_groups || {}),
+        [BLUE, GREEN, ORANGE]
+      );
+
+      // Time in Ireland — pills
+      renderPills('time-pills', d.time || {}, total);
+
+      // Status doughnut
+      makeOrUpdate('statusChart', 'doughnut',
+        Object.keys(d.status || {}),
+        Object.values(d.status || {}),
+        [GREEN, BLUE, ORANGE, GRAY]
+      );
+
+      // Cost of living bar
+      makeOrUpdate('costChart', 'bar',
+        Object.keys(d.cost || {}),
+        Object.values(d.cost || {}),
+        [RED, GREEN, GRAY]
+      );
+
+      // Plan to stay bar
+      makeOrUpdate('stayChart', 'bar',
+        Object.keys(d.stay || {}),
+        Object.values(d.stay || {}),
+        [GREEN, RED, ORANGE]
+      );
+    })
+    .catch(console.error);
+}
+
+// Initial load + auto-refresh every 15 s
+loadData();
+setInterval(loadData, 15000);
+</script>
+{% endblock %}
