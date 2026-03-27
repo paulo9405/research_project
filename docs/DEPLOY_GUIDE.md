@@ -157,7 +157,7 @@ python manage.py createsuperuser
 Follow the prompts:
 - **Username:** `admin`
 - **Email:** (press Enter to skip or add any email)
-- **Password:** `123` (or choose a secure password)
+- **Password:** `123` (or choose a secure password)(real password)
 - **Password (again):** `123`
 
 **Note:** The password won't show while typing - this is normal.
