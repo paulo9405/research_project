@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You — Ireland Data Project{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center" style="max-width: 600px; margin: 0 auto;">
+
+        <!-- Ícone de check -->
+        <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+             style="width: 120px; height: 120px; background-color: #F0F0F0;">
+            <i class="bi bi-check-circle" style="font-size: 56px; color: var(--primary-color);"></i>
+        </div>
+
+        <!-- Mensagem principal -->
+        <h1 class="fw-bold mb-3">Thank you for sharing your story</h1>
+        <p class="text-muted mb-4">
+            Your contribution helps us better understand the diverse experiences of immigrants in Ireland.
+            Together, we are building a richer picture of our changing society.
+        </p>
+
+        <!-- Botão principal -->
+        <a href="{% url 'results' %}" class="btn btn-primary px-4 py-2 fw-bold" style="border-radius: 50px; font-size: 16px;">
+            Explore the Results <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+        <!-- Links secundários -->
+        <div class="mt-4 d-flex justify-content-center gap-4">
+            <a href="{% url 'survey_form' %}" class="text-muted text-decoration-none">
+                <i class="bi bi-grid me-1"></i> Return to Survey
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

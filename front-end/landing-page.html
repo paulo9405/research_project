@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ireland Data Project - High-Contrast Survey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#059669", // Deeper emerald green for better contrast
+                        "charcoal": "#1a1a1a",
+                        "deep-navy": "#0f172a",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#020617",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.75rem",
+                        "lg": "1.5rem",
+                        "xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-charcoal dark:text-slate-100 transition-colors duration-300">
+<div class="relative min-h-screen w-full flex flex-col overflow-x-hidden">
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 py-6 bg-white/90 backdrop-blur-md border-b border-slate-200/50">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded-full flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">analytics</span>
+</div>
+<h2 class="text-charcoal dark:text-white text-xl font-extrabold tracking-tight">Ireland Data Project</h2>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-charcoal dark:text-slate-300 text-sm font-bold hover:text-primary transition-colors" href="#">Research</a>
+<a class="text-charcoal dark:text-slate-300 text-sm font-bold hover:text-primary transition-colors" href="#">About</a>
+<a class="text-charcoal dark:text-slate-300 text-sm font-bold hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-full h-11 px-6 bg-charcoal dark:bg-primary text-white text-sm font-bold tracking-wide transition-transform hover:scale-105">
+                Log In
+            </button>
+</div>
+</header>
+<section class="relative h-[60vh] w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden pt-20">
+<div class="absolute inset-0 z-0 bg-slate-50">
+<div class="w-full h-full bg-cover bg-center mix-blend-overlay opacity-30" data-alt="Soft blurred aerial view of Irish green hills and coastline" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC4feIBTh1W098nepZAM7APh3uWQgFVlpTmeMrE3-77djxxi0k40kEuQl08jcXBrAl-ggwzO0l6vpa-MaG-4hNxZnUToiS297jPFmxb_N9KAysoaaPdwUEE9piTAfV1ZPM7y85aS4nGpSL9L5CBgfPPpMOrogxNQwee5b7xCDjnf485T6iCoLa_9ES2js_qmkNG0iiE38hUsyVwoL9UOU79YRP7gJXxq7ULvhcX-1S216IhAik_81ZuK6YblFOYVOajdj369yz7gjCy");'></div>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h1 class="text-5xl md:text-7xl font-extrabold text-charcoal dark:text-white mb-6 tracking-tight leading-[1.1]">
+                Why did you choose to <br/><span class="text-primary">live in Ireland?</span>
+</h1>
+<p class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 max-w-2xl mx-auto font-semibold">
+                Your insights help us understand the landscape of immigration and quality of life in Ireland.
+            </p>
+</div>
+</section>
+<main class="flex-1 -mt-24 relative z-20 pb-20 px-4">
+<div class="max-w-[1000px] mx-auto">
+<div class="bg-white dark:bg-slate-900 rounded-2xl form-card-shadow overflow-hidden border border-slate-200 dark:border-slate-800">
+<div class="p-10 pb-0">
+<div class="flex flex-col gap-4">
+<div class="flex gap-6 justify-between items-end">
+<div>
+<p class="text-charcoal dark:text-white text-xl font-extrabold">Survey Progress</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-bold">Section 1 of 4: Motivation</p>
+</div>
+<p class="text-charcoal dark:text-white text-lg font-black">25%</p>
+</div>
+<div class="rounded-full bg-slate-100 dark:bg-slate-800 h-4 w-full">
+<div class="h-full rounded-full bg-primary shadow-sm transition-all duration-500" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+<div class="p-10">
+<h2 class="text-charcoal dark:text-white text-2xl font-black mb-10 border-b-2 border-slate-100 dark:border-slate-800 pb-4">Main Reason for Moving</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+<button class="group flex flex-col items-center gap-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition-all hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-charcoal dark:text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined !text-4xl">school</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-charcoal dark:text-white text-lg font-extrabold">Learn English</h3>
+<p class="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Education</p>
+</div>
+</button>
+<button class="group flex flex-col items-center gap-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition-all hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-charcoal dark:text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined !text-4xl">work</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-charcoal dark:text-white text-lg font-extrabold">Job Opportunities</h3>
+<p class="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Employment</p>
+</div>
+</button>
+<button class="group flex flex-col items-center gap-4 rounded-xl border-2 border-primary bg-slate-50 dark:bg-slate-800/80 p-8 text-center transition-all">
+<div class="size-16 rounded-full bg-primary flex items-center justify-center text-white shadow-md">
+<span class="material-symbols-outlined !text-4xl">favorite</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-charcoal dark:text-white text-lg font-extrabold">Quality of Life</h3>
+<p class="text-primary dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">Lifestyle</p>
+</div>
+</button>
+<button class="group flex flex-col items-center gap-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition-all hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800/50">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-charcoal dark:text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined !text-4xl">trending_up</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-charcoal dark:text-white text-lg font-extrabold">Career / Future</h3>
+<p class="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Prospects</p>
+</div>
+</button>
+</div>
+<div class="space-y-10">
+<h2 class="text-charcoal dark:text-white text-2xl font-black mb-8 border-b-2 border-slate-100 dark:border-slate-800 pb-4">Personal Information</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-3">
+<label class="text-sm font-black text-charcoal dark:text-slate-200 px-1 uppercase tracking-wider">Full Name</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-500">
+<span class="material-symbols-outlined !text-xl">person</span>
+</div>
+<input class="w-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-emerald-500/10 focus:border-primary transition-all outline-none text-charcoal dark:text-white font-bold placeholder:text-slate-400" placeholder="e.g. Liam O'Sullivan" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-sm font-black text-charcoal dark:text-slate-200 px-1 uppercase tracking-wider">Current City</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-500">
+<span class="material-symbols-outlined !text-xl">location_on</span>
+</div>
+<input class="w-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-emerald-500/10 focus:border-primary transition-all outline-none text-charcoal dark:text-white font-bold placeholder:text-slate-400" placeholder="e.g. Dublin" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-sm font-black text-charcoal dark:text-slate-200 px-1 uppercase tracking-wider">Nationality</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-500">
+<span class="material-symbols-outlined !text-xl">public</span>
+</div>
+<input class="w-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-emerald-500/10 focus:border-primary transition-all outline-none text-charcoal dark:text-white font-bold placeholder:text-slate-400" placeholder="Your origin country" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-sm font-black text-charcoal dark:text-slate-200 px-1 uppercase tracking-wider">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-500">
+<span class="material-symbols-outlined !text-xl">mail</span>
+</div>
+<input class="w-full bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl py-4 pl-14 pr-6 focus:ring-4 focus:ring-emerald-500/10 focus:border-primary transition-all outline-none text-charcoal dark:text-white font-bold placeholder:text-slate-400" placeholder="email@address.com" type="email"/>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-20 flex flex-col items-center gap-6">
+<button class="w-full md:w-auto min-w-[340px] flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-18 py-5 px-12 bg-primary text-white text-xl font-black shadow-xl shadow-emerald-500/30 transition-all hover:scale-[1.03] hover:shadow-emerald-500/50 active:scale-95">
+                            Submit Survey
+                            <span class="material-symbols-outlined ml-3 text-2xl">arrow_forward</span>
+</button>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-bold">By submitting, you agree to our academic data privacy guidelines.</p>
+</div>
+</div>
+</div>
+<footer class="mt-16 text-center text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-4">
+<p class="text-base font-medium leading-relaxed italic">
+                    The Ireland Data Project is an independent academic initiative conducted for social research and urban planning. All responses are fully anonymized and handled according to GDPR regulations.
+                </p>
+<div class="mt-8 flex justify-center items-center gap-10">
+<img alt="University Logo" class="h-10 grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCApCYo7wlhY1AaCUmumYLm8VIZe6sRitNnE5nLIskAQm5BfMhZS-AP4NAvd9sieKFjeIuyiQYmJCb4yX34aOrVaEjWWd8ToWxR87udaNlwuAyVUEhRaw-1mhedvwBKzsZmWTJ7VWkykDk8MzQj4apKS2f_7FidChuL6O7_14ja087jUeMKZ-1ZUOxqILcdIfzZsoCZur_UEdZN-ZnYE42kKBHMe8bZDS_d8nXovv5c0zZAP52rpfhVnskYpR_jg82XMAV-TbOK4fqC"/>
+<div class="h-8 w-px bg-slate-300"></div>
+<img alt="Department Logo" class="h-10 grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW4U22cEyXD4jP0Iy0iMjwCQ1sEWMrYaSULGNMjTZW1d7lFz0ZRLrPQzeFxwZuXT3mjlHh_HnWRqmh6410ihfgCr2QA_VBc98D96hKJFyzJD1dal8j6H5FXfpla-aqwly0BSUbtaTrgYr8cnBsJ3uKpQ8_i21NrP6uzVK00LUPRpzgiJwPBXN8qBd6NklRI_kBjMJW2zjXERkWHY8W5ftQMLGIAZX42oR_FQAcQitmZtm3XsaLneixvBzxGka-x5Nh8vhpv00AXmU0"/>
+</div>
+</footer>
+</div>
+</main>
+</div>
+
+</body></html>

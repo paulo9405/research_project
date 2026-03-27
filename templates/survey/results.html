@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Results Dashboard — Ireland Data Project{% endblock %}
+
+{% block extra_css %}
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold mb-0">Data Visualization</h1>
+            <p class="text-muted mb-0">Academic survey platform for data collection and visualization.</p>
+        </div>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card p-4">
+                <small class="text-muted text-uppercase">Total Respondents</small>
+                <h2 class="fw-bold mt-1" style="color: var(--primary-color);">{{ total }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row g-4">
+
+        <!-- Chart: Primary Reasons -->
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5 class="fw-bold mb-1">Primary Reasons</h5>
+                <p class="text-muted small mb-3">Main factors for immigrating to Ireland</p>
+                <canvas id="reasonsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Chart: Age Groups -->
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5 class="fw-bold mb-1">Age Demographics</h5>
+                <p class="text-muted small mb-3">Age group distribution of survey participants</p>
+                <canvas id="ageChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Data injected from Django view context
+    var reasonLabels = [{% for label in reasons.keys %}"{{ label }}",{% endfor %}];
+    var reasonData   = [{% for count in reasons.values %}{{ count }},{% endfor %}];
+
+    var ageLabels = [{% for label in age_groups.keys %}"{{ label }}",{% endfor %}];
+    var ageData   = [{% for count in age_groups.values %}{{ count }},{% endfor %}];
+
+    // Bar chart — Primary Reasons
+    new Chart(document.getElementById('reasonsChart'), {
+        type: 'bar',
+        data: {
+            labels: reasonLabels,
+            datasets: [{
+                label: 'Responses',
+                data: reasonData,
+                backgroundColor: ['#008751', '#005A9C', '#CED4DA', '#FFA500', '#DC3545'],
+                borderRadius: 6,
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+        }
+    });
+
+    // Doughnut chart — Age Groups
+    new Chart(document.getElementById('ageChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ageLabels,
+            datasets: [{
+                data: ageData,
+                backgroundColor: ['#005A9C', '#008751', '#FFA500'],
+            }]
+        },
+        options: {
+            plugins: { legend: { position: 'right' } }
+        }
+    });
+</script>
+{% endblock %}
